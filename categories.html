@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Budget Tracker - Manage Categories</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="h-8 w-8 bg-indigo-600 rounded-full flex items-center justify-center">
+                            <i class="fas fa-chart-line text-white text-sm"></i>
+                        </div>
+                        <span class="ml-2 text-xl font-bold text-gray-900">AI Budget Tracker</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="dashboard.html" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                    </a>
+                    <button id="logoutBtn" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Manage Categories</h1>
+            <p class="text-gray-600 mt-2">Customize your expense and income categories</p>
+        </div>
+
+        <!-- Category Management -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Expense Categories -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                    <h3 class="text-lg font-medium text-gray-900">Expense Categories</h3>
+                    <button id="addExpenseCategoryBtn" class="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700">
+                        <i class="fas fa-plus mr-2"></i>Add Category
+                    </button>
+                </div>
+                <div class="p-6">
+                    <div id="expenseCategories" class="space-y-3">
+                        <!-- Expense categories will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Income Categories -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                    <h3 class="text-lg font-medium text-gray-900">Income Categories</h3>
+                    <button id="addIncomeCategoryBtn" class="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-700">
+                        <i class="fas fa-plus mr-2"></i>Add Category
+                    </button>
+                </div>
+                <div class="p-6">
+                    <div id="incomeCategories" class="space-y-3">
+                        <!-- Income categories will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Usage Statistics -->
+        <div class="mt-8 bg-white rounded-lg shadow">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-medium text-gray-900">Category Usage Statistics</h3>
+            </div>
+            <div class="p-6">
+                <div id="categoryStats" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Category statistics will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div id="categoryModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <h3 class="text-lg font-medium text-gray-900 mb-4" id="modalTitle">Add Category</h3>
+                <form id="categoryForm">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Category Name</label>
+                        <input type="text" id="categoryName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Icon</label>
+                        <select id="categoryIcon" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                            <option value="fas fa-shopping-cart">Shopping Cart</option>
+                            <option value="fas fa-utensils">Food</option>
+                            <option value="fas fa-car">Transportation</option>
+                            <option value="fas fa-home">Housing</option>
+                            <option value="fas fa-film">Entertainment</option>
+                            <option value="fas fa-heartbeat">Healthcare</option>
+                            <option value="fas fa-graduation-cap">Education</option>
+                            <option value="fas fa-plane">Travel</option>
+                            <option value="fas fa-gift">Gifts</option>
+                            <option value="fas fa-tools">Utilities</option>
+                            <option value="fas fa-wallet">Salary</option>
+                            <option value="fas fa-chart-line">Investment</option>
+                            <option value="fas fa-briefcase">Business</option>
+                            <option value="fas fa-hand-holding-usd">Other Income</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Color</label>
+                        <div class="grid grid-cols-6 gap-2">
+                            <button type="button" class="color-option w-8 h-8 rounded-full bg-red-500" data-color="red"></button>
+                            <button type="button" class="color-option w-8 h-8 rounded-full bg-blue-500" data-color="blue"></button>
+                            <button type="button" class="color-option w-8 h-8 rounded-full bg-green-500" data-color="green"></button>
+                            <button type="button" class="color-option w-8 h-8 rounded-full bg-yellow-500" data-color="yellow"></button>
+                            <button type="button" class="color-option w-8 h-8 rounded-full bg-purple-500" data-color="purple"></button>
+                            <button type="button" class="color-option w-8 h-8 rounded-full bg-pink-500" data-color="pink"></button>
+                        </div>
+                        <input type="hidden" id="categoryColor" value="blue">
+                    </div>
+                    <input type="hidden" id="categoryType" value="">
+                    <input type="hidden" id="editingCategoryId" value="">
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" id="cancelCategoryBtn" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">Cancel</button>
+                        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700">Save Category</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/categories.js"></script>
+</body>
+</html>
