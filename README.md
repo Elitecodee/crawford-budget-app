@@ -1,6 +1,6 @@
-# Crawford University Student Budget Tracker
+# Student Budget Tracker
 
-A PHP-based financial management system designed specifically for Nigerian students at Crawford University.
+A PHP-based financial management system designed specifically for Nigerian students.
 
 ## Features
 
@@ -26,9 +26,9 @@ A PHP-based financial management system designed specifically for Nigerian stude
    - Install and start Apache and MySQL services
 
 2. **Setup the Project**
-   - Extract the project files to `C:\xampp\htdocs\crawford-budget-tracker\`
+   - Extract the project files to `C:\xampp\htdocs\budget-tracker\`
    - Open phpMyAdmin (http://localhost/phpmyadmin)
-   - Create a new database named `crawford_budget_tracker`
+   - Create a new database named `budget_tracker`
    - Import the SQL file from `database/setup.sql`
 
 3. **Configure Database Connection**
@@ -37,7 +37,7 @@ A PHP-based financial management system designed specifically for Nigerian stude
 
 4. **Access the Application**
    - Open your web browser
-   - Navigate to `http://localhost/crawford-budget-tracker/`
+   - Navigate to `http://localhost/budget-tracker/`
 
 ## Default Test Accounts
 
@@ -52,7 +52,7 @@ A PHP-based financial management system designed specifically for Nigerian stude
 ## Project Structure
 
 \`\`\`
-crawford-budget-tracker/
+budget-tracker/
 ├── index.php                 # Login page
 ├── register.php              # Registration page
 ├── dashboard.php             # Main dashboard
@@ -78,7 +78,7 @@ crawford-budget-tracker/
 
 ## Usage
 
-1. **Registration**: New students can register with their Crawford University details
+1. **Registration**: New students can register with their University details
 2. **Dashboard**: View financial overview, add income/expenses, and see recent transactions
 3. **Budget Planning**: Set spending limits for different categories
 4. **Data Export**: Download financial data for personal records
@@ -99,11 +99,11 @@ crawford-budget-tracker/
 
 ## Contributing
 
-This project is designed as a case study for Crawford University students. For improvements or bug reports, please contact the development team.
+This project is designed as a case study for University students. For improvements or bug reports, please contact the development team.
 
 ## License
 
-This project is for educational purposes and is specific to Crawford University students.
+This project is for educational purposes and is specific to University students.
 \`\`\`
 
 ## 🎓 **Complete PHP Setup Instructions for XAMPP**
@@ -117,16 +117,16 @@ I've successfully converted the AI Budget Finance Tracker to a complete PHP appl
    - Install and start Apache + MySQL
 
 2. **Setup Project**
-   - Create folder: `C:\xampp\htdocs\crawford-budget-tracker\`
+   - Create folder: `C:\xampp\htdocs\budget-tracker\`
    - Copy all the PHP files into this folder
 
 3. **Setup Database**
    - Open phpMyAdmin: `http://localhost/phpmyadmin`
-   - Create database: `crawford_budget_tracker`
+   - Create database: `budget_tracker`
    - Import the `database/setup.sql` file
 
 4. **Access Application**
-   - Open browser: `http://localhost/crawford-budget-tracker/`
+   - Open browser: `http://localhost/budget-tracker/`
 
 ### **🔑 Test Login Credentials:**
 - **Email**: `john.doe@student.crawford.edu.ng`
@@ -146,7 +146,7 @@ I've successfully converted the AI Budget Finance Tracker to a complete PHP appl
 
 3. **Student-Specific Features**
    - Nigerian Naira (₦) currency
-   - Crawford University branding
+   - University branding
    - Student categories (allowance, textbooks, etc.)
 
 4. **Core Functionality**
