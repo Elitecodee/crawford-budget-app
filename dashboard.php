@@ -52,78 +52,47 @@ $expense_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body class="bg-gray-50">
     <!-- Navigation -->
     <nav class="bg-green-800 shadow-sm border-b">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex items-center">
-                <div class="flex-shrink-0 flex items-center">
-                    <div class="h-8 w-8 bg-green-600 rounded-full flex items-center justify-center">
-                        <i class="fas fa-graduation-cap text-white text-sm"></i>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="h-8 w-8 bg-green-600 rounded-full flex items-center justify-center">
+                            <i class="fas fa-graduation-cap text-white text-sm"></i>
+                        </div>
+                        <span class="ml-2 text-xl font-bold text-white">Crawford University Budget Tracker</span>
                     </div>
-                    <span class="ml-2 text-xl font-bold text-white">Crawford University Budget Tracker</span>
                 </div>
-            </div>
-            <div class="flex items-center space-x-2 md:space-x-2">
-                <span class="text-white text-sm">Welcome, <?php echo htmlspecialchars($_SESSION['full_name']); ?></span>
-                
-                <button onclick="showAddIncomeModal()" class="bg-green-600 hover:bg-green-700 text-white px-2 md:px-4 py-2 rounded-md text-xs md:text-sm font-medium transition duration-150 ease-in-out">
-                    <i class="fas fa-plus mr-1 md:mr-2"></i><span class="hidden sm:inline">Add </span>Income
-                </button>
-                
-                <button onclick="showAddExpenseModal()" class="bg-red-600 hover:bg-red-700 text-white px-2 md:px-4 py-2 rounded-md text-xs md:text-sm font-medium transition duration-150 ease-in-out">
-                    <i class="fas fa-minus mr-1 md:mr-2"></i><span class="hidden sm:inline">Add </span>Expense
-                </button>
+                <div class="flex items-center space-x-2 md:space-x-3 text-white text-sm">
+                    <span class="truncate max-w-[100px]"><?php echo htmlspecialchars($_SESSION['full_name']); ?></span>
 
-                <!-- Budget Dropdown -->
-                <div class="relative group" x-data="{ open: false }" @click.away="open = false">
-                    <button @click="open = !open" class="bg-purple-600 hover:bg-purple-700 text-white px-2 md:px-4 py-2 rounded-md text-xs md:text-sm font-medium transition duration-150 ease-in-out">
-                        <i class="fas fa-chart-pie mr-1 md:mr-2"></i>Budget <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-200" :class="{'transform rotate-180': open}"></i>
+                    <button onclick="showAddIncomeModal()" title="Add Income" class="bg-green-600 hover:bg-green-700 px-2 py-1 rounded text-xs md:text-sm">
+                        <i class="fas fa-plus"></i><span class="hidden md:inline ml-1">Income</span>
                     </button>
-                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10" 
-                         x-show="open" 
-                         x-transition:enter="transition ease-out duration-100"
-                         x-transition:enter-start="transform opacity-0 scale-95"
-                         x-transition:enter-end="transform opacity-100 scale-100"
-                         x-transition:leave="transition ease-in duration-75"
-                         x-transition:leave-start="transform opacity-100 scale-100"
-                         x-transition:leave-end="transform opacity-0 scale-95">
-                        <a href="budget.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Budget Overview</a>
-                        <a href="suggested-budget.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Smart Budget</a>
-                    </div>
-                </div>
 
-                <!-- Import/Export Dropdown -->
-                <div class="relative group" x-data="{ open: false }" @click.away="open = false">
-                    <button @click="open = !open" class="bg-gray-600 hover:bg-gray-700 text-white px-2 md:px-4 py-2 rounded-md text-xs md:text-sm font-medium transition duration-150 ease-in-out">
-                        <i class="fas fa-file-import mr-1 md:mr-2"></i>Data <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-200" :class="{'transform rotate-180': open}"></i>
+                    <button onclick="showAddExpenseModal()" title="Add Expense" class="bg-red-600 hover:bg-red-700 px-2 py-1 rounded text-xs md:text-sm">
+                        <i class="fas fa-minus"></i><span class="hidden md:inline ml-1">Expense</span>
                     </button>
-                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10"
-                         x-show="open"
-                         x-transition:enter="transition ease-out duration-100"
-                         x-transition:enter-start="transform opacity-0 scale-95"
-                         x-transition:enter-end="transform opacity-100 scale-100"
-                         x-transition:leave="transition ease-in duration-75"
-                         x-transition:leave-start="transform opacity-100 scale-100"
-                         x-transition:leave-end="transform opacity-0 scale-95">
-                        <a href="export.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Export Data</a>
-                        <a href="import.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Import Data</a>
+
+                    <div class="relative group">
+                        <button title="More Options" class="bg-gray-700 hover:bg-gray-800 px-2 py-1 rounded text-xs md:text-sm">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                        <div class="absolute hidden group-hover:block bg-white text-black rounded shadow-lg mt-1 right-0 z-10 text-xs">
+                            <a href="budget.php" class="block px-4 py-2 hover:bg-gray-100"><i class="fas fa-chart-pie mr-2"></i>Budget</a>
+                            <a href="suggested-budget.php" class="block px-4 py-2 hover:bg-gray-100"><i class="fas fa-magic mr-2"></i>Smart Budget</a>
+                            <a href="export.php" class="block px-4 py-2 hover:bg-gray-100"><i class="fas fa-download mr-2"></i>Export</a>
+                            <a href="import.php" class="block px-4 py-2 hover:bg-gray-100"><i class="fas fa-upload mr-2"></i>Import</a>
+                        </div>
                     </div>
+
+                    <a href="auth/logout.php" title="Logout" class="hover:text-gray-300">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
                 </div>
 
-                <a href="auth/logout.php" class="text-white hover:text-gray-300" title="Logout">
-                    <i class="fas fa-sign-out-alt"></i>
-                </a>
             </div>
         </div>
-    </div>
-</nav>
-
-<!-- Include Alpine.js for the dropdown functionality -->
-<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <style>
-        .group:hover .group-hover\:block {
-            display: block;
-        }
-    </style>
+    </nav>
 
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <!-- Welcome Message -->

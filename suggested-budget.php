@@ -49,26 +49,27 @@ $has_existing_budgets = !empty($existing_budgets);
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply_budget'])) {
     try {
         $db->beginTransaction();
-
+        
         // Clear existing budgets if user chooses to replace
         if (isset($_POST['replace_existing'])) {
             $stmt = $db->prepare("DELETE FROM budgets WHERE user_id = ?");
             $stmt->execute([$_SESSION['user_id']]);
         }
-
+        
         // Insert new budget categories
         $stmt = $db->prepare("INSERT INTO budgets (user_id, category, amount, period) VALUES (?, ?, ?, 'monthly') ON DUPLICATE KEY UPDATE amount = VALUES(amount)");
-
+        
         foreach ($_POST['budget'] as $category => $amount) {
             if ($amount > 0) {
                 $stmt->execute([$_SESSION['user_id'], $category, $amount]);
             }
         }
-
+        
         $db->commit();
         header('Location: budget.php?success=Smart budget applied successfully');
         exit();
-    } catch (PDOException $e) {
+        
+    } catch(PDOException $e) {
         $db->rollback();
         $error_message = "Failed to apply budget. Please try again.";
     }
@@ -76,7 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply_budget'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,7 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply_budget'])) {
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-
 <body class="bg-gray-50">
     <!-- Navigation -->
     <nav class="bg-green-800 shadow-sm border-b">
@@ -143,14 +142,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply_budget'])) {
                     <div class="text-sm text-gray-600">Total Income (Last 3 Months)</div>
                 </div>
             </div>
-
+            
             <?php if ($income_count == 0): ?>
                 <div class="mt-4 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                     <div class="flex">
                         <i class="fas fa-info-circle text-yellow-500 mr-2 mt-1"></i>
                         <div>
                             <p class="text-sm text-yellow-800">
-                                <strong>No income data found.</strong> We've used a typical Nigerian student allowance of ₦50,000 for suggestions.
+                                <strong>No income data found.</strong> We've used a typical Nigerian student allowance of ₦50,000 for suggestions. 
                                 Add your actual income to get personalized recommendations.
                             </p>
                         </div>
@@ -220,10 +219,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply_budget'])) {
                 <h3 class="text-lg font-medium text-gray-900">Your Personalized Budget Plan</h3>
                 <p class="text-sm text-gray-600 mt-1">Review and adjust these suggestions before applying</p>
             </div>
-
+            
             <div class="p-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <?php
+                    <?php 
                     $category_info = [
                         'food' => ['name' => 'Food & Meals', 'icon' => 'utensils', 'color' => 'green', 'desc' => 'Daily meals, snacks, groceries'],
                         'transportation' => ['name' => 'Transportation', 'icon' => 'bus', 'color' => 'blue', 'desc' => 'Bus fare, taxi, fuel'],
@@ -235,8 +234,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply_budget'])) {
                         'internet' => ['name' => 'Internet & Data', 'icon' => 'wifi', 'color' => 'cyan', 'desc' => 'Data plans, internet bills'],
                         'savings' => ['name' => 'Savings & Emergency', 'icon' => 'piggy-bank', 'color' => 'emerald', 'desc' => 'Emergency fund, future goals']
                     ];
-
-                    foreach ($suggested_budget as $category => $amount):
+                    
+                    foreach ($suggested_budget as $category => $amount): 
                         $info = $category_info[$category];
                         $percentage = round(($amount / $avg_monthly_income) * 100, 1);
                     ?>
@@ -255,25 +254,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply_budget'])) {
                                     <div class="text-sm font-medium text-<?php echo $info['color']; ?>-600"><?php echo $percentage; ?>%</div>
                                 </div>
                             </div>
-
+                            
                             <div class="mb-2">
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Monthly Budget (₦)</label>
-                                <input
-                                    type="number"
-                                    name="budget[<?php echo $category; ?>]"
+                                <input 
+                                    type="number" 
+                                    name="budget[<?php echo $category; ?>]" 
                                     value="<?php echo $amount; ?>"
                                     min="0"
                                     step="100"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-<?php echo $info['color']; ?>-500 focus:border-<?php echo $info['color']; ?>-500">
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-<?php echo $info['color']; ?>-500 focus:border-<?php echo $info['color']; ?>-500"
+                                >
                             </div>
-
+                            
                             <div class="w-full bg-gray-200 rounded-full h-2">
                                 <div class="bg-<?php echo $info['color']; ?>-500 h-2 rounded-full" style="width: <?php echo min($percentage, 100); ?>%"></div>
                             </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
-
+                
                 <!-- Budget Summary -->
                 <div class="mt-8 bg-gray-50 rounded-lg p-4">
                     <h4 class="font-medium text-gray-900 mb-3">Budget Summary</h4>
@@ -300,7 +300,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply_budget'])) {
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Action Buttons -->
                 <div class="mt-8 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
                     <?php if ($has_existing_budgets): ?>
@@ -309,7 +309,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply_budget'])) {
                             <span class="ml-2 text-sm text-gray-700">Replace my existing budgets</span>
                         </label>
                     <?php endif; ?>
-
+                    
                     <div class="flex space-x-3">
                         <a href="dashboard.php" class="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">
                             Cancel
@@ -328,29 +328,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply_budget'])) {
         document.addEventListener('DOMContentLoaded', function() {
             const inputs = document.querySelectorAll('input[name^="budget["]');
             const monthlyIncome = <?php echo $avg_monthly_income; ?>;
-
+            
             function updateSummary() {
                 let total = 0;
                 inputs.forEach(input => {
                     total += parseFloat(input.value) || 0;
                 });
-
+                
                 document.getElementById('totalBudget').textContent = '₦' + total.toLocaleString();
-
+                
                 const remaining = monthlyIncome - total;
                 const remainingEl = document.getElementById('remaining');
                 remainingEl.textContent = '₦' + remaining.toLocaleString();
                 remainingEl.className = remaining >= 0 ? 'text-lg font-bold text-green-600' : 'text-lg font-bold text-red-600';
-
+                
                 const percentage = monthlyIncome > 0 ? (total / monthlyIncome) * 100 : 0;
                 document.getElementById('budgetPercentage').textContent = percentage.toFixed(1) + '%';
             }
-
+            
             inputs.forEach(input => {
                 input.addEventListener('input', updateSummary);
             });
         });
     </script>
 </body>
-
 </html>

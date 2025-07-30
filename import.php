@@ -4,7 +4,6 @@ require_once 'includes/auth_check.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +12,6 @@ require_once 'includes/auth_check.php';
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
-
 <body class="bg-gray-50">
     <!-- Navigation -->
     <nav class="bg-green-800 shadow-sm border-b">
@@ -133,7 +131,7 @@ require_once 'includes/auth_check.php';
                 <i class="fas fa-eye text-green-500 mr-2"></i>
                 Preview & Map Columns
             </h3>
-
+            
             <!-- Column Mapping -->
             <div id="columnMapping" class="mb-6">
                 <h4 class="font-medium mb-3">Map your CSV columns:</h4>
@@ -258,5 +256,4 @@ require_once 'includes/auth_check.php';
 
     <script src="js/import-simple.js"></script>
 </body>
-
 </html>
